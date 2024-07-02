@@ -1,9 +1,9 @@
-import {FaSignInAlt, FaSignOutAlt, FaUser} from 'react-icons/fa';
+import {FaSignInAlt, FaUser} from 'react-icons/fa';
 import { Link } from 'react-router-dom'; 
 
 function Header() {
   return (
-    <header className='header'>
+    <footer className='header'>
         <div className="logo">
             <Link to='/'>GoalSetter</Link>
         </div>
@@ -19,7 +19,7 @@ function Header() {
                 </Link>
             </li>
         </ul>
-    </header>
+    </footer>
   )
 }
 
