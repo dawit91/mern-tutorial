@@ -15,10 +15,14 @@ function Register() {
 
     const {name, email, password, password2} = formData
 
-    const {user, isSuccess, isLoading, isError, message} = useSelector( (state) => state.auth)
-
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const {user, isSuccess, isLoading, isError, message} = useSelector( 
+        (state) => state.auth
+    )
+
+   
 
     useEffect( () => {
         if(isError) {
