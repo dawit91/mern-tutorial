@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react"
 import { FaSignInAlt } from "react-icons/fa"
-
+import {useSelector, useDispatch} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
+import { login,reset } from "../features/auth/authSlice"
+import {toast} from 'react-toastify'
 
 function Login() {
     const [formData, setFormData] = useState({
@@ -11,13 +14,41 @@ function Login() {
     })
 
     const { email, password} = formData
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const {isSuccess, isLoading, isError, message, user} = useSelector(
+        (state) => state.auth
+    )
+
+    useEffect( () => {
+        if(isError){
+            toast.error(message)
+        }
+        if(isSuccess || user) {
+            navigate('/')
+        }
+        dispatch(reset())
+    }, [user, isError, isSuccess, message,dispatch, navigate ])
     const onChange = (e) => {
         setFormData( (previousState) => ({
             ...previousState,
             [e.target.name]: e.target.value
         }))
     }
-    const onSubmit = () => {}
+    const onSubmit = (e) => {
+        e.preventDefault()
+       const userData = {
+        email,
+        password
+       } 
+
+       dispatch(login(userData))
+    }
+
+    if(isLoading) {
+        return <h1>Loading</h1>
+    }
   return (
     <>
         <section className="heading">
